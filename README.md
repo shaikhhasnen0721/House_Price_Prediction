@@ -80,15 +80,13 @@ streamlit run app.py
 
 ##  Screenshots
 
-Example:
+<img width="599" height="335" alt="image" src="https://github.com/user-attachments/assets/fb9d5cb2-fc33-4ab6-8293-df35e59d8f12" />
 
 
 
 ##  Live Demo
 
-👉 (Add your Streamlit deployment link here)
-
----
+  Local URL: http://localhost:8501
 
 ##  Model Details
 
