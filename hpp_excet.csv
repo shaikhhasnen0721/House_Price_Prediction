@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 location,size,total_sqft,price,category,bhk,price_per_sqft
 Himagiri Meadows,2 BHK,869.0,3600000,Rural,2,4142.692750287687
 Adarsh Nagar,2 BHK,1270.0,5000000,Urban,2,3937.0078740157483
@@ -1492,7 +1491,6 @@ Devanahalli Road,3 BHK,1532.0,9200000,Urban,3,6005.221932114882
 Ejipura,3 BHK,1650.0,11000000,Urban,3,6666.666666666667
 Horamavu Banaswadi,4 Bedroom,1200.0,10500000,Urban,4,8750.0
 Bhoganhalli,2 BHK,804.1,6909000,Urban,2,8592.214898644446
-=======
 location,size,total_sqft,price,category,bhk,price_per_sqft
 Himagiri Meadows,2 BHK,869.0,3600000,Rural,2,4142.692750287687
 Adarsh Nagar,2 BHK,1270.0,5000000,Urban,2,3937.0078740157483
@@ -2986,4 +2984,3 @@ Devanahalli Road,3 BHK,1532.0,9200000,Urban,3,6005.221932114882
 Ejipura,3 BHK,1650.0,11000000,Urban,3,6666.666666666667
 Horamavu Banaswadi,4 Bedroom,1200.0,10500000,Urban,4,8750.0
 Bhoganhalli,2 BHK,804.1,6909000,Urban,2,8592.214898644446
->>>>>>> 3d393b64ef195ae23543800c802123f313507a30
