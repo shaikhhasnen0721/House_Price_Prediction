@@ -88,15 +88,28 @@ streamlit run app.py
 
   Local URL: http://localhost:8501
 
+
 ##  Model Details
 
 * Algorithm Used: Linear Regression
 * Dataset: Bangalore House Price Dataset
 * Libraries Used: Scikit-learn, Pandas, NumPy
 * Output: Predicted house price based on user input
+ 
+## 📊 Model Performance
 
----
+The machine learning model was trained and evaluated using multiple performance metrics to ensure reliable predictions.
 
+| Training Accuracy | 87.34% |
+| R² Score | 82.74% |
+| Cross Validation Scores | 86.20%, 86.11%, 87.76%, 88.90%, 88.32% |
+| Average Cross Validation Score | 87.46% |
+
+### ✅ Interpretation
+
+- The model achieved strong prediction accuracy on training data.
+- The R² score indicates good prediction capability on unseen data.
+- Cross-validation results show that the model performs consistently across different datasets.
 ## 🔮 Future Improvements
 
 * Add multiple ML models (Random Forest, XGBoost)
