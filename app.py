@@ -33,7 +33,7 @@ def load_resources():
     # Clean Column Names
     df.columns = df.columns.str.strip().str.lower()
 
-    # Check Required Columns
+    # Required Columns Check
     required_columns = ["location", "category"]
 
     for col in required_columns:
@@ -49,7 +49,7 @@ def load_resources():
     return model, data_columns, df
 
 
-# Load All Resources
+# Load Everything
 model, data_columns, df = load_resources()
 
 # ----------------------------------------
@@ -59,6 +59,21 @@ def predict_price(location, sqft, bhk, area_type):
 
     area_type = area_type.lower().strip()
 
+    # Find Selected Location
+    sample = df[df["location"].str.lower() == location.lower()]
+
+    # Location Validation
+    if len(sample) == 0:
+        return "❌ Location not found in dataset!"
+
+    # Get Actual Category
+    actual_category = sample["category"].iloc[0]
+
+    # Check Urban / Rural
+    if actual_category != area_type:
+        return f"❌ This location is not {area_type.title()}. Please select {actual_category.title()} location."
+
+    # Create Input Vector
     x = np.zeros(len(data_columns))
 
     # Numeric Features
@@ -68,13 +83,13 @@ def predict_price(location, sqft, bhk, area_type):
     if "bhk" in data_columns:
         x[data_columns.index("bhk")] = bhk
 
-    # Location One-Hot Encoding
+    # Location One Hot Encoding
     loc = location.lower().strip()
 
     if loc in data_columns:
         x[data_columns.index(loc)] = 1
 
-    # Area Type One-Hot Encoding
+    # Area Type Encoding
     area_col = f"area_{area_type}"
 
     if area_col in data_columns:
@@ -93,33 +108,36 @@ st.title("🏡 Bangalore House Price Prediction")
 
 st.markdown("### Enter Property Details")
 
+# ----------------------------------------
 # User Inputs
+# ----------------------------------------
+
 sqft = st.number_input(
-    "Total Square Feet",
+    "📐 Total Square Feet",
     min_value=300,
     max_value=10000,
     step=10
 )
 
 bhk = st.selectbox(
-    "BHK",
+    "🏠 Select BHK",
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 )
 
 locations = sorted(df["location"].unique())
 
 location = st.selectbox(
-    "Select Location",
+    "📍 Select Location",
     locations
 )
 
 area_type = st.radio(
-    "Area Type",
+    "🌍 Select Area Type",
     ["Urban", "Rural"]
 )
 
 # Predict Button
-predict_btn = st.button("Predict Price 🔍")
+predict_btn = st.button("🔍 Predict Price")
 
 # ----------------------------------------
 # Prediction Result
@@ -130,22 +148,30 @@ if predict_btn:
 
     st.markdown("## 🏁 Prediction Result")
 
-    st.success(f"### Estimated Price: ₹ {result} Lakhs")
+    # If Error Message
+    if isinstance(result, str):
+        st.error(result)
 
-    st.write("---")
+    # If Prediction Success
+    else:
+        st.success(f"### 💰 Estimated Price: ₹ {result} Lakhs")
 
-    st.info(f"""
-    📍 Location: {location}
+        st.write("---")
 
-    🏠 BHK: {bhk}
+        st.info(f"""
+        📍 Location: {location}
 
-    📐 Total Sqft: {sqft}
+        🏠 BHK: {bhk}
 
-    🌍 Area Type: {area_type}
+        📐 Total Sqft: {sqft}
 
-    💰 Estimated Price: ₹ {result} Lakhs
-    """)
+        🌍 Area Type: {area_type}
 
+        💰 Estimated Price: ₹ {result} Lakhs
+        """)
+
+# ----------------------------------------
 # Footer
+# ----------------------------------------
 st.markdown("---")
 st.caption("Built with ❤️ using Streamlit & Machine Learning")
