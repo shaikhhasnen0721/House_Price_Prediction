@@ -122,8 +122,24 @@ if st.button("Predict Price"):
 
     result = predict_price(location, sqft, bhk, area_type)
 
-    if isinstance(result, str):
+    st.markdown("## 🏁 Prediction Result")
+
+    # If validation error
+    if type(result) == str:
+
         st.error(result)
 
+    # If prediction success
     else:
-        st.success(f"Estimated Price: ₹ {result} Lakhs")
+
+        st.success(f"💰 Estimated Price: ₹ {result} Lakhs")
+
+        st.info(f"""
+        📍 Location: {location}
+
+        🏠 BHK: {bhk}
+
+        📐 Total Sqft: {sqft}
+
+        🌍 Area Type: {area_type}
+        """)
