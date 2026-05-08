@@ -27,9 +27,6 @@ def load_resources():
     # Clean Columns
     df.columns = df.columns.str.strip().str.lower()
 
-    # DEBUGGING
-    st.write("CSV Columns:", df.columns.tolist())
-
     # Check Required Columns
     if "location" not in df.columns:
         st.error("❌ 'location' column not found")
@@ -94,14 +91,31 @@ def predict_price(location, sqft, bhk, area_type):
 
 
 # UI
-st.title("🏡 Bangalore House Price Prediction")
+st.markdown("""
+<h1 style='text-align: center; color: #00ADB5;'>
+🏡 Bangalore House Price Prediction
+</h1>
 
-sqft = st.number_input(
-    "Total Square Feet",
-    min_value=300,
-    max_value=10000,
-    step=10
-)
+<p style='text-align: center;'>
+Predict house prices using Machine Learning
+</p>
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    sqft = st.number_input(
+        "📐 Total Square Feet",
+        min_value=300,
+        max_value=10000,
+        step=10
+    )
+
+with col2:
+    bhk = st.selectbox(
+        "🏠 BHK",
+        [1,2,3,4,5,6,7,8,9,10]
+    )
 
 bhk = st.selectbox(
     "BHK",
