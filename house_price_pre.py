@@ -9,11 +9,11 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.model_selection import cross_val_score
 
 #Dataset to DataFrame convert
-df1 = pd.read_csv("house_price_data.csv")
+df1 = pd.read_csv("house_price_data.csv", encoding='utf-8-sig')
 print(df1.head())
 print(df1.shape)
 
-print(df1.groupby('area_type')['area_type'].agg('count'))
+print(df1['area_type'].head())
 
 #DATA CLEANING
 #DATA CLEANING
@@ -29,6 +29,7 @@ print(df2.isnull().sum())
 df3 = df2.dropna()
 print(df3.isnull().sum())
 
+df3 = df3[df3['size'] != 'size']    
 #Create new column 'bhk' in size column
 df3 = df3.copy()
 df3.loc[:, 'bhk'] = df3['size'].apply(lambda x: int(x.split(' ')[0]))
@@ -57,11 +58,16 @@ def convert_sqft_to_num(x):
 df4 = df3.copy()
 df4.total_sqft = df4.total_sqft.apply(convert_sqft_to_num)
 df4 = df4[df4.total_sqft.notnull()]
+
+# ADD THESE 2 LINES
+df4['price'] = pd.to_numeric(df4['price'], errors='coerce')
+df4['total_sqft'] = pd.to_numeric(df4['total_sqft'], errors='coerce')
+
 print(df4.head(15))
 
-# #We can add new column of 'price_per_sqft'
+# price_per_sqft
 df5 = df4.copy()
-df5['price_per_sqft'] = df5['price']*1/df5['total_sqft']
+df5['price_per_sqft'] = df5['price'] / df5['total_sqft']
 print(df5.head())
 
 #Save upgraded CSV file
@@ -122,7 +128,7 @@ def remove_bhk_outliers(df):
                 exclude_indices = np.append(exclude_indices, bhk_df[bhk_df.price_per_sqft<(stats['mean'])].index.values)
     return df.drop(exclude_indices,axis='index')
 df8 = remove_bhk_outliers(df7)
-df8 = df7.copy()
+
 print(df8.shape)
 
 #Drop the column
