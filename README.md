@@ -1,0 +1,134 @@
+# 🏠 House Price Prediction
+
+A Machine Learning web application that predicts house prices based on user inputs like area, number of bedrooms, bathrooms, and location. This project demonstrates end-to-end ML workflow including data preprocessing, model building, and deployment using Streamlit.
+
+---
+
+##  Overview
+
+This project is built to solve real-world real estate pricing problems using machine learning techniques.
+It includes:
+
+* Data preprocessing and cleaning
+* Feature engineering
+* Model training using regression algorithms
+* A user-friendly web interface built with Streamlit
+
+---
+
+##  Features
+
+* 📊 Predict house prices instantly
+* 🧠 Machine Learning model trained on housing dataset
+* 🌐 Interactive UI using Streamlit
+* ⚡ Fast and simple user experience
+* 📈 Scalable for real-world use
+
+---
+
+##  Tech Stack
+
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* Streamlit
+
+---
+
+##  Project Structure
+
+```
+House_Price_Prediction/
+│
+├── app.py                      # Streamlit web app
+├── house_price_pre.py          # Data preprocessing & model training
+├── banglore_home_prices_model.pickle   # Trained model
+├── columns.json                # Model input columns
+├── data/
+│   └── house_price_data.xlsx   # Dataset
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+---
+
+## ▶️ How to Run the Project
+
+### 1️⃣ Clone the repository
+
+```
+git clone https://github.com/yourusername/House-Price-Prediction.git
+cd House-Price-Prediction
+```
+
+### 2️⃣ Install dependencies
+
+```
+pip install -r requirements.txt
+```
+
+### 3️⃣ Run the Streamlit app
+
+```
+streamlit run app.py
+```
+
+---
+
+##  Screenshots
+
+<img width="599" height="335" alt="image" src="https://github.com/user-attachments/assets/fb9d5cb2-fc33-4ab6-8293-df35e59d8f12" />
+
+
+
+##  Live Demo
+
+  Local URL: http://localhost:8501
+
+
+##  Model Details
+
+* Algorithm Used: Linear Regression
+* Dataset: Bangalore House Price Dataset
+* Libraries Used: Scikit-learn, Pandas, NumPy
+* Output: Predicted house price based on user input
+ 
+## 📊 Model Performance
+
+The machine learning model was trained and evaluated using multiple performance metrics to ensure reliable predictions.
+
+| Training Accuracy | 87.34% |
+| R² Score | 82.74% |
+| Cross Validation Scores | 86.20%, 86.11%, 87.76%, 88.90%, 88.32% |
+| Average Cross Validation Score | 87.46% |
+
+### ✅ Interpretation
+
+- The model achieved strong prediction accuracy on training data.
+- The R² score indicates good prediction capability on unseen data.
+- Cross-validation results show that the model performs consistently across different datasets.
+## 🔮 Future Improvements
+
+* Add multiple ML models (Random Forest, XGBoost)
+* Improve UI design
+* Add user authentication
+* Deploy with API backend
+
+---
+
+## 🙋‍♂️ Author
+
+**Hasnen Shaikh**
+📧 [shaikhhasnen0721@gmail.com](mailto:shaikhhasnen0721@gmail.com)
+🔗 LinkedIn: https://www.linkedin.com/in/hasnenshaikh/
+💻 GitHub: https://github.com/shaikhhasnen0721
+
+---
+
+## ⭐ If you like this project
+
+Give it a ⭐ on GitHub and feel free to contribute!
+
