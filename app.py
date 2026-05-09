@@ -91,69 +91,45 @@ def predict_price(location, sqft, bhk, area_type):
 
 
 # UI
-st.markdown("""
-<h1 style='text-align: center; color: #00ADB5;'>
-🏡 Bangalore House Price Prediction
-</h1>
+st.title("🏡 House Price Prediction")
 
-<p style='text-align: center;'>
-Predict house prices using Machine Learning
-</p>
-""", unsafe_allow_html=True)
 
-col1, col2 = st.columns(2)
+# ----------------------------------------
+# User Inputs
+# ----------------------------------------
+st.header("Enter Property Details")
 
-with col1:
-    sqft = st.number_input(
-        "📐 Total Square Feet",
-        min_value=300,
-        max_value=10000,
-        step=10
-    )
+sqft = st.number_input("Total Square Feet", min_value=300, max_value=10000, step=10)
 
-with col2:
-    bhk = st.selectbox(
-        "🏠 BHK",
-        [1,2,3,4,5,6,7,8,9,10]
-    )
+bhk = st.selectbox("BHK", [1,2,3,4,5,6,7,8,9,10])
 
-bhk = st.selectbox(
-    "BHK",
-    [1,2,3,4,5,6,7,8,9,10]
-)
+locations = sorted(df["location"].unique())
+location = st.selectbox("Select Location", locations)
 
-location = st.selectbox(
-    "Select Location",
-    sorted(df["location"].unique())
-)
+area_type = st.radio("Area Type", ["Urban", "Rural"])
 
-area_type = st.radio(
-    "Area Type",
-    ["Urban", "Rural"]
-)
+predict_btn = st.button("Predict Price 🔍")
 
-if st.button("Predict Price"):
-
+# ----------------------------------------
+# Output Page
+# ----------------------------------------
+if predict_btn:
     result = predict_price(location, sqft, bhk, area_type)
 
     st.markdown("## 🏁 Prediction Result")
 
-    # If validation error
-    if type(result) == str:
-
+    if isinstance(result, str) and result.startswith("❌"):
         st.error(result)
-
-    # If prediction success
     else:
+        st.success(f"###  Estimated Price: **₹ {result} Lakhs**")
 
-        st.success(f"💰 Estimated Price: ₹ {result} Lakhs")
-
+        st.write("---")
         st.info(f"""
-        📍 Location: {location}
-
-        🏠 BHK: {bhk}
-
-        📐 Total Sqft: {sqft}
-
-        🌍 Area Type: {area_type}
+        **Summary**  
+        • Location: {location}  
+        • Sqft: {sqft}  
+        • BHK: {bhk}  
+        • Area Type: {area_type}  
         """)
+
+st.markdown("---")
