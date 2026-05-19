@@ -88,9 +88,22 @@ print(location_stats_less_than_10)
 
 print(len(df5.location.unique()))
 
-#Find the other name location in dataset using this function
-df5.location = df5.location.apply(lambda x: 'other' if x in location_stats_less_than_10 else x)
-print(len(df5.location.unique()))
+def clean_location_name(x):
+    x = str(x).strip()
+
+    words = x.split()
+
+    # सिर्फ single number remove करेगा
+    if len(words[0]) == 1 and words[0].isdigit():
+        words = words[1:]
+
+    return " ".join(words)
+
+df5.location = df5.location.apply(clean_location_name)
+
+location_stats = df5['location'].value_counts(ascending=False)
+
+location_stats_less_than_10 = location_stats[location_stats <= 10]
 
 #Print dataset first 10 rows
 print(df5.head(10))
@@ -142,10 +155,16 @@ category_dummies = pd.get_dummies(df9['category'], prefix="area")
 df9 = pd.concat([df9, category_dummies], axis="columns")
 
 
-#Make dummy data using dummy method
+# Make dummy data using dummy method
+
 # create location dummies
 dummies = pd.get_dummies(df9.location)
-df10 = pd.concat([df9, dummies.drop('other', axis='columns')], axis='columns')
+
+# safely remove 'other' column if present
+dummies = dummies.drop('other', axis='columns', errors='ignore')
+
+# combine dataframes
+df10 = pd.concat([df9, dummies], axis='columns')
 
 df11 = df10.drop(['location', 'category'], axis='columns')
 
@@ -175,7 +194,7 @@ def predict_price(location, sqft, bhk, area_type):
     area_type = area_type.lower().strip()
 
     # ---- Step 1: detect actual area_type of this location ----
-    if location not in X.columns:
+    if location not in df9['location'].unique():
         return "Invalid location!"
 
     # find the row sample describing this location
@@ -217,7 +236,6 @@ print(predict_price('Yelahanka', 1600, 3, "Rural"))
 print(predict_price('Chandapura',800, 2, 'Rural'))
 
 # print(predict_price('Chandapura',800, 2, 'Rural'))
-
 #Make pikle file
 with open('banglore_home_prices_model.pickle','wb') as f:
     pickle.dump(lr_clf,f)
