@@ -4,6 +4,8 @@ import pandas as pd
 import pickle
 import json
 
+from house_price_pre import clean_location_name
+
 st.set_page_config(
     page_title="House Price Prediction",
     page_icon="🏠",
@@ -38,6 +40,27 @@ def load_resources():
 
     # Clean Data
     df["location"] = df["location"].astype(str).str.strip()
+
+    def clean_location_name(x):
+
+        x = str(x).strip()
+
+        words = x.split()
+
+        # remove starting numbers like 1, 2, 3
+        if len(words) > 0 and words[0].isdigit():
+            words = words[1:]
+
+        # remove starting values like 1st, 2nd, 3rd, 4th
+        elif len(words) > 0 and words[0].lower().endswith(("st", "nd", "rd", "th")):
+            if words[0][:-2].isdigit():
+                words = words[1:]
+
+        return " ".join(words)
+
+    # Apply cleaning
+    df["location"] = df["location"].apply(clean_location_name)
+
     df["category"] = df["category"].astype(str).str.lower().str.strip()
 
     return model, data_columns, df

@@ -78,6 +78,8 @@ df5.location = df5.location.apply(lambda x: x.strip())
 location_stats = df5['location'].value_counts(ascending=False)
 print(location_stats)
 
+
+
 # find len of locations who is >10
 print(len(location_stats[location_stats>10]))
 print(len(location_stats))
@@ -89,17 +91,24 @@ print(location_stats_less_than_10)
 print(len(df5.location.unique()))
 
 def clean_location_name(x):
+
     x = str(x).strip()
 
     words = x.split()
 
-    # सिर्फ single number remove करेगा
-    if len(words[0]) == 1 and words[0].isdigit():
+    # remove starting numbers like 1, 2, 3
+    if words[0].isdigit():
         words = words[1:]
+
+    # remove starting values like 1st, 2nd, 3rd
+    elif words[0].lower().endswith(("st", "nd", "rd", "th")):
+        if words[0][:-2].isdigit():
+            words = words[1:]
 
     return " ".join(words)
 
 df5.location = df5.location.apply(clean_location_name)
+print(df5.location.unique()[:50])
 
 location_stats = df5['location'].value_counts(ascending=False)
 
@@ -231,7 +240,7 @@ def predict_price(location, sqft, bhk, area_type):
     x_df = pd.DataFrame([x], columns=X.columns)
     return int(lr_clf.predict(x_df)[0])
 
-print(predict_price("7th Phase JP Nagar", 1080, 2, "Rural"))
+
 print(predict_price('Yelahanka', 1600, 3, "Rural"))
 print(predict_price('Chandapura',800, 2, 'Rural'))
 
