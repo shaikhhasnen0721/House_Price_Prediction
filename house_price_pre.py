@@ -237,12 +237,12 @@ print(predict_price('Chandapura',800, 2, 'Rural'))
 
 # print(predict_price('Chandapura',800, 2, 'Rural'))
 #Make pikle file
-with open('banglore_home_prices_model.pickle','wb') as f:
+with open('home_prices_model.pickle','wb') as f:
     pickle.dump(lr_clf,f)
 
 #Make json file
 columns = {
     'data_columns' : [col.lower() for col in X.columns]
 }
-with open("columns.json","w") as f:
+with open("columns_home_prices.json","w") as f:
     f.write(json.dumps(columns))

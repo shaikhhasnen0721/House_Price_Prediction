@@ -14,11 +14,11 @@ st.set_page_config(
 def load_resources():
 
     # Load Model
-    with open("banglore_home_prices_model.pickle", "rb") as f:
+    with open("home_prices_model.pickle", "rb") as f:
         model = pickle.load(f)
 
     # Load Columns
-    with open("columns.json", "r") as f:
+    with open("columns_home_prices.json", "r") as f:
         data_columns = json.load(f)["data_columns"]
 
     # Load CSV
